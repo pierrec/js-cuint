@@ -1,0 +1,26 @@
+{
+  "name": "cuint",
+  "version": "0.0.0",
+  "description": "Unsigned integers for Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pierrec/js-cuint"
+  },
+  "keywords": [
+    "C",
+    "unsigned",
+    "integer",
+    "32bits",
+    "64bits"
+  ],
+  "author": "Pierre Curto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pierrec/js-cuint/issues"
+  },
+  "homepage": "https://github.com/pierrec/js-cuint"
+}
