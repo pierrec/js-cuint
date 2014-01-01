@@ -69,4 +69,15 @@ describe('div method', function () {
 
   })
 
+  describe('high bit/high bit 2', function () {
+
+    it('should return n', function (done) {
+      var u = UINT32('3266489917').div( UINT32('668265263') )
+
+      assert.equal( u.toNumber(), 4 )
+      done()
+    })
+
+  })
+
 })

@@ -49,4 +49,15 @@ describe('toString method', function () {
 
   })
 
+  describe('< radix', function () {
+
+    it('should return the number', function (done) {
+      var u = UINT32(4).toString()
+
+      assert.equal( u, '4' )
+      done()
+    })
+
+  })
+
 })
