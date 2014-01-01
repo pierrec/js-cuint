@@ -28,14 +28,14 @@ In nodejs:
 
     npm install cuint
 
-In the browser, include the following, and access the constructor with _UINT32_:
+In the browser, include the following (file is located in the _build_ directory), and access the constructor with _UINT32_:
 
-`<script src="/your/path/to/uint32.js"></script>
+`<script src="/your/path/to/uint32.lmd.js"></script>
 ...
 <script type="text/javascript">
-  var prime1 = UINT32('3266489917');
-  var prime2 = UINT32('2654435761');
-  var prime1plus2 = prime1.add(prime2)
+  var v1 = UINT32('326648991');
+  var v2 = UINT32('265443576');
+  var v1plus2 = v1.add(v2) // 592092567
 </script>`
 
 ## Usage

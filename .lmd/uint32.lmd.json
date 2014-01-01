@@ -1,0 +1,12 @@
+{
+    "name": "uint32 build",
+    "description": "UINT32 build for browsers, exposing UINT32 as global",
+    "root": "../",
+    "output": "build/uint32.lmd.js",
+    "modules": {
+    	"uint32": "./lib/uint32.js"
+    ,	"main": "./lib/browser.js"
+    },
+    "main": "main",
+    "ie": false
+}

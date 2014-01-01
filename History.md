@@ -1,8 +1,10 @@
 0.0.1 / 2014-01-01
 ==================
 
+* toString() fix for uint < radix
 * toString() no longer alters the unsigned integer
 * fixed shiftLeft() not applying mask properly, affecting toString() and div()
+* added examples
 
 0.0.0 / 2013-12-31
 ==================
