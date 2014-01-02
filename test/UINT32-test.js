@@ -175,6 +175,16 @@ describe('UINT32 constructor', function () {
       })
     })
 
+    describe('80000000 with radix 16', function () {
+      it('should properly initialize', function (done) {
+        var u = UINT32( '80000000', 16 )
+
+        assert.equal( u._low, 0 )
+        assert.equal( u._high, 32768 )
+        done()
+      })
+    })
+
   })
 
 })

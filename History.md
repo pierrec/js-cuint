@@ -3,6 +3,7 @@
 
 * shiftLeft() and shiftRight() fixes when n > 16
 * not() fix
+* adjusted fromString() slice from 8 to 6 to avoid radix overflow
 
 0.0.2 / 2014-01-02
 ==================
