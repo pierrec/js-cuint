@@ -1,6 +1,6 @@
 {
   "name": "cuint",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Unsigned integers for Javascript",
   "main": "index.js",
   "scripts": {
