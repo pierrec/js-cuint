@@ -60,4 +60,15 @@ describe('toString method', function () {
 
   })
 
+  describe('= radix', function () {
+
+    it('should return the number', function (done) {
+      var u = UINT32(2).toString(2)
+
+      assert.equal( u, '10' )
+      done()
+    })
+
+  })
+
 })
