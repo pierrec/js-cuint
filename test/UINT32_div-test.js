@@ -24,7 +24,29 @@ describe('div method', function () {
   describe('0/1', function () {
 
     it('should return 0', function (done) {
+      var u = UINT32(2).div( UINT32(1) )
+
+      assert.equal( u.toNumber(), 2 )
+      done()
+    })
+
+  })
+
+  describe('2/1', function () {
+
+    it('should return 2', function (done) {
       var u = UINT32(0).div( UINT32(1) )
+
+      assert.equal( u.toNumber(), 0 )
+      done()
+    })
+
+  })
+
+  describe('1/2', function () {
+
+    it('should return 0', function (done) {
+      var u = UINT32(1).div( UINT32(2) )
 
       assert.equal( u.toNumber(), 0 )
       done()
