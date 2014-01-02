@@ -2,6 +2,7 @@
 ==================
 
 * shiftLeft() and shiftRight() fixes when n > 16
+* not() fix
 
 0.0.2 / 2014-01-02
 ==================
