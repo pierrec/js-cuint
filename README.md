@@ -4,9 +4,6 @@
 
 Javascript does not natively support handling of unsigned 32 or 64 bits integers. This library provides that functionality, following C behaviour, enabling the writing of algorithms that depend on it.
 
-TODO
-64 bits integers not supported yet!
-
 
 ## How it works
 
@@ -45,9 +42,17 @@ To instantiate an unsigned 32 bits integer, do any of the following:
 	var UINT32 = require('cuint').UINT32 // NodeJS
 	UINT32( <low bits>, <high bits> )
 	UINT32( <number> )
-	UINT32( '<number>' )
+	UINT32( '<number>', <radix> ) // radix = 10 by default
 
-## Examples
+To instantiate an unsigned 64 bits integer, do any of the following:
+
+	var UINT64 = require('cuint').UINT64 // NodeJS
+	UINT64( <low bits>, <high bits> )
+	UINT64( <first low bits>, <second low bits>, <first high bits>, <second high bits> )
+	UINT64( <number> )
+	UINT64( '<number>', <radix> ) // radix = 10 by default
+
+## Examples for UINT32
 
 * Using low and high bits
 > `UINT32( 2, 1 )		// 65538`
@@ -76,52 +81,96 @@ To instantiate an unsigned 32 bits integer, do any of the following:
 >	,	_high: 0
 >	}
 
+## Examples for UINT64
+
+* Using low and high bits
+> `UINT64( 2, 1 )		// 4294967298`
+> { remainder: null, _a00: 2, _a16: 0, _a32: 1, _a48: 0 }
+
+* Using first/second low and high bits
+> `UINT64( 2, 1, 0, 0 )		// 65538`
+> { remainder: null, _a00: 2, _a16: 1, _a32: 0, _a48: 0 }
+
+* Using a number (signed 32 bits integer)
+> `UINT64( 65538 ) 	// 65538`
+> { remainder: null, _a00: 2, _a16: 1, _a32: 0, _a48: 0 }
+
+* Using a string
+> `UINT64( '65538' )	// 65538`
+> { remainder: null, _a00: 2, _a16: 1, _a32: 0, _a48: 0 }
+
+* Using another string
+> `UINT64( '3266489917' )`
+> { remainder: null, _a00: 44605, _a16: 49842, _a32: 0, _a48: 0 }
+
+* Divide 2 unsigned 64 bits integers - note that the remainder is also provided
+> `UINT64( 'F00000000000', 16 ).div( UINT64( '800000000000', 16 ) )`
+> { remainder: 
+>   { remainder: null,
+>     _a00: 0,
+>     _a16: 0,
+>     _a32: 28672,
+>     _a48: 0 },
+>  _a00: 1,
+>  _a16: 0,
+>  _a32: 0,
+>  _a48: 0 }
+
 ## Methods
+
+Methods apply to both _UINT32_ and _UINT64_ unless otherwise specified.
 
 * `UINT32.fromBits(<low bits>, <high bits>)*`
 Set the current _UINT32_ object with its low and high bits
-* `UINT32.fromNumber(<number>)*`
-Set the current _UINT32_ object from a number
-* `UINT32.fromString(<string>, <radix>)*`
-Set the current _UINT32_ object from a string
-* `UINT32.toNumber()`
-Convert this _UINT32_ to a number
-* `UINT32.toString(<radix>)`
-Convert this _UINT32_ to a string
-* `UINT32.add(<uint>)*`
-Add two _UINT32_. The current _UINT32_ stores the result
-* `UINT32.subtract(<uint>)*`
-Subtract two _UINT32_. The current _UINT32_ stores the result
-* `UINT32.multiply(<uint>)*`
-Multiply two _UINT32_. The current _UINT32_ stores the result
-* `UINT32.div(<uint>)*`
-Divide two _UINT32_. The current _UINT32_ stores the result.
-The remainder is made available as the _remainder_ property on the _UINT32_ object.
+
+* `UINT64.fromBits(<low bits>, <high bits>)*`
+Set the current _UINT64_ object with its low and high bits
+* `UINT64.fromBits(<first low bits>, <second low bits>, <first high bits>, <second high bits>)*`
+Set the current _UINT64_ object with all its low and high bits
+
+Set the current _UINT64_ object with its low and high bits
+* `UINT.fromNumber(<number>)*`
+Set the current _UINT_ object from a number (first 32 bits only)
+* `UINT.fromString(<string>, <radix>)`
+Set the current _UINT_ object from a string
+* `UINT.toNumber()`
+Convert this _UINT_ to a number
+* `UINT.toString(<radix>)`
+Convert this _UINT_ to a string
+* `UINT.add(<uint>)*`
+Add two _UINT_. The current _UINT_ stores the result
+* `UINT.subtract(<uint>)*`
+Subtract two _UINT_. The current _UINT_ stores the result
+* `UINT.multiply(<uint>)*`
+Multiply two _UINT_. The current _UINT_ stores the result
+* `UINT.div(<uint>)*`
+Divide two _UINT_. The current _UINT_ stores the result.
+The remainder is made available as the _remainder_ property on the _UINT_ object.
 It can be null, meaning there are no remainder.
-* `UINT32.negate()` alias `UINT32.not()`
-Negate the current _UINT32_
-* `UINT32.equals(<uint>)` alias `UINT32.eq(<uint>)`
+* `UINT.negate()` alias `UINT.not()`
+Negate the current _UINT_
+* `UINT.equals(<uint>)` alias `UINT.eq(<uint>)`
 Equals
-* `UINT32.lessThan(<uint>)` alias `UINT32.lt(<uint>)`
+* `UINT.lessThan(<uint>)` alias `UINT.lt(<uint>)`
 Less than (strict)
-* `UINT32.greaterThan(<uint>)` alias `UINT32.gt(<uint>)`
+* `UINT.greaterThan(<uint>)` alias `UINT.gt(<uint>)`
 Greater than (strict)
-* `UINT32.or(<uint>)*`
+* `UINT.or(<uint>)*`
 Bitwise OR
-* `UINT32.and(<uint>)*`
+* `UINT.and(<uint>)*`
 Bitwise AND
-* `UINT32.xor(<uint>)*`
+* `UINT.xor(<uint>)*`
 Bitwise XOR
-* `UINT32.shiftRight(<number>)*` alias `UINT32.shiftr(<number>)*`
+* `UINT.shiftRight(<number>)*` alias `UINT.shiftr(<number>)*`
 Bitwise shift right
-* `UINT32.shiftLeft(<number>[, <allowOverflow>])*` alias `UINT32.shiftl(<number>[, <allowOverflow>])*`
+* `UINT.shiftLeft(<number>[, <allowOverflow>])*` alias `UINT.shiftl(<number>[, <allowOverflow>])*`
 Bitwise shift left
-* `UINT32.rotateLeft(<number>)*` alias `UINT32.rotl(<number>)*`
+* `UINT.rotateLeft(<number>)*` alias `UINT.rotl(<number>)*`
 Bitwise rotate left
-* `UINT32.rotateRight(<number>)*` alias `UINT32.rotr(<number>)*`
+* `UINT.rotateRight(<number>)*` alias `UINT.rotr(<number>)*`
 Bitwise rotate right
-* `UINT32.clone()`
-Clone the current _UINT32_
+* `UINT.clone()`
+Clone the current _UINT_
 
 NB. methods with an * do __modify__ the object it is applied to. Input objects are not modified.
 
