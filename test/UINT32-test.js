@@ -6,7 +6,7 @@ describe('UINT32 constructor', function () {
   describe('with no parameters', function () {
 
     it('should properly initialize', function (done) {
-      var u = UINT32(0, 0)
+      var u = UINT32()
 
       assert.equal( u._low, 0 )
       assert.equal( u._high, 0 )
@@ -27,7 +27,7 @@ describe('UINT32 constructor', function () {
       })
     })
 
-    describe('0, 1', function () {
+    describe('1, 0', function () {
       it('should properly initialize', function (done) {
         var u = UINT32(1, 0)
 
@@ -37,7 +37,7 @@ describe('UINT32 constructor', function () {
       })
     })
 
-    describe('1, 0', function () {
+    describe('0, 1', function () {
       it('should properly initialize', function (done) {
         var u = UINT32(0, 1)
 
@@ -170,6 +170,16 @@ describe('UINT32 constructor', function () {
         var u = UINT32( '7B', 16 )
 
         assert.equal( u._low, 123 )
+        assert.equal( u._high, 0 )
+        done()
+      })
+    })
+
+    describe('8000 with radix 16', function () {
+      it('should properly initialize', function (done) {
+        var u = UINT32( '8000', 16 )
+
+        assert.equal( u._low, 32768 )
         assert.equal( u._high, 0 )
         done()
       })
