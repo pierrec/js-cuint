@@ -255,6 +255,30 @@ describe('UINT64 constructor', function () {
       })
     })
 
+    describe('maximum unsigned 64 bits value in base 2', function () {
+      it('should properly initialize', function (done) {
+        var u = UINT64( Array(65).join('1'), 2 )
+
+        assert.equal( u._a00, 65535 )
+        assert.equal( u._a16, 65535 )
+        assert.equal( u._a32, 65535 )
+        assert.equal( u._a48, 65535 )
+        done()
+      })
+    })
+
+    describe('maximum unsigned 64 bits value in base 16', function () {
+      it('should properly initialize', function (done) {
+        var u = UINT64( Array(17).join('F'), 16 )
+
+        assert.equal( u._a00, 65535 )
+        assert.equal( u._a16, 65535 )
+        assert.equal( u._a32, 65535 )
+        assert.equal( u._a48, 65535 )
+        done()
+      })
+    })
+
   })
 
 })

@@ -1,3 +1,12 @@
+0.1.1 / 2014-01-04
+==================
+
+* faster uint32.fromString()
+* fix for uint64.div()
+* adjusted toString() to handle max radix of 36
+* added minified versions in build/
+* updated README
+
 0.1.0 / 2014-01-03
 ==================
 

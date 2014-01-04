@@ -1,10 +1,11 @@
 {
   "name": "cuint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unsigned integers for Javascript",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
+  , "prepublish": "node build"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/pierrec/js-cuint/issues"
   },
-  "homepage": "https://github.com/pierrec/js-cuint"
+  "homepage": "https://github.com/pierrec/js-cuint",
+  "devDependencies": {
+    "minify": "0.2.x"
+  }
 }

@@ -42,7 +42,7 @@ describe('rotateLeft method', function () {
     it('should return 1', function (done) {
       var u = UINT64(1).rotateLeft(32)
 
-      assert.equal( u.toString(16), 'fff100000' )
+      assert.equal( u.toString(16), '100000000' )
       done()
     })
 

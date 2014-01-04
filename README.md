@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Javascript does not natively support handling of unsigned 32 or 64 bits integers. This library provides that functionality, following C behaviour, enabling the writing of algorithms that depend on it.
+Javascript does not natively support handling of unsigned 32 or 64 bits integers. This library provides that functionality, following C behaviour, enabling the writing of algorithms that depend on it. It was designed with performance in mind and tries its best to be as fast as possible. Any improvement is welcome!
 
 
 ## How it works
@@ -15,7 +15,7 @@ An unsigned 32 bits integer is represented by an object with its first 16 bits (
 	low= 0100010000100010
 
 NB.
-In case of overflow, the unsigned integer is _truncated_ to its lowest 32 bits.
+In case of overflow, the unsigned integer is _truncated_ to its lowest 32 bits (in case of UINT32) or 64  bits (in case of UINT64).
 
 The same applies to 64 bits integers, which are split into 4 16 bits ones.
 
@@ -27,7 +27,7 @@ In nodejs:
 
 In the browser, include the following (file is located in the _build_ directory), and access the constructor with _UINT32_:
 
-`<script src="/your/path/to/uint32.lmd.js"></script>
+`<script src="/your/path/to/uint32.js"></script>
 ...
 <script type="text/javascript">
   var v1 = UINT32('326648991');
@@ -51,6 +51,17 @@ To instantiate an unsigned 64 bits integer, do any of the following:
 	UINT64( <first low bits>, <second low bits>, <first high bits>, <second high bits> )
 	UINT64( <number> )
 	UINT64( '<number>', <radix> ) // radix = 10 by default
+
+## Important
+
+Most methods __do modify__ the object they are applied to. For instance, the following is equivalent to `x += y`
+
+	UINT(x).add( UINT(y) )
+
+This allows for chaining and reduces the cost of the emulation.
+To have `z = x + y`, do the following:
+
+    z = UINT(x).clone().add( UINT(y) )
 
 ## Examples for UINT32
 
@@ -118,17 +129,17 @@ To instantiate an unsigned 64 bits integer, do any of the following:
 
 ## Methods
 
-Methods apply to both _UINT32_ and _UINT64_ unless otherwise specified.
+Methods specific to _UINT32_ and _UINT64_:
 
 * `UINT32.fromBits(<low bits>, <high bits>)*`
 Set the current _UINT32_ object with its low and high bits
-
 * `UINT64.fromBits(<low bits>, <high bits>)*`
 Set the current _UINT64_ object with its low and high bits
 * `UINT64.fromBits(<first low bits>, <second low bits>, <first high bits>, <second high bits>)*`
 Set the current _UINT64_ object with all its low and high bits
 
-Set the current _UINT64_ object with its low and high bits
+Methods common to _UINT32_ and _UINT64_:
+
 * `UINT.fromNumber(<number>)*`
 Set the current _UINT_ object from a number (first 32 bits only)
 * `UINT.fromString(<string>, <radix>)`
@@ -173,6 +184,16 @@ Bitwise rotate right
 Clone the current _UINT_
 
 NB. methods with an * do __modify__ the object it is applied to. Input objects are not modified.
+
+## TODO
+
+* more methods:
+    * pow
+    * log
+    * sqrt
+    * ...
+* signed version
+
 
 ## License
 
