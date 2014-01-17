@@ -195,6 +195,26 @@ describe('UINT32 constructor', function () {
       })
     })
 
+    describe('maximum unsigned 32 bits value in base 2', function () {
+      it('should properly initialize', function (done) {
+        var u = UINT32( Array(33).join('1'), 2 )
+
+        assert.equal( u._low, 65535 )
+        assert.equal( u._high, 65535 )
+        done()
+      })
+    })
+
+    describe('maximum unsigned 32 bits value in base 16', function () {
+      it('should properly initialize', function (done) {
+        var u = UINT32( Array(9).join('F'), 16 )
+
+        assert.equal( u._low, 65535 )
+        assert.equal( u._high, 65535 )
+        done()
+      })
+    })
+
   })
 
 })

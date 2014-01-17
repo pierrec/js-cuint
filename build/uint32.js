@@ -86,7 +86,12 @@
 	 * @return ThisExpression
 	 */
 	function fromString (s, radix) {
-		return this.fromNumber( parseInt(s, radix || 10) )
+		var value = parseInt(s, radix || 10)
+
+		this._low = value & 0xFFFF
+		this._high = value >>> 16
+
+		return this
 	}
 	UINT32.prototype.fromString = fromString
 
@@ -148,6 +153,7 @@
 	 * @return ThisExpression
 	 */
 	UINT32.prototype.subtract = function (other) {
+		//TODO inline
 		return this.add( other.clone().negate() )
 	}
 

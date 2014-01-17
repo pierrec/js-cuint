@@ -7,9 +7,9 @@
 
 	// Local cache for typical radices
 	var radixPowerCache = {
-		16: UINT64( Math.pow(16, 6) )
-	,	10: UINT64( Math.pow(10, 6) )
-	,	2:  UINT64( Math.pow(2, 6) )
+		16: UINT64( Math.pow(16, 5) )
+	,	10: UINT64( Math.pow(10, 5) )
+	,	2:  UINT64( Math.pow(2, 5) )
 	}
 	var radixCache = {
 		16: UINT64(16)
@@ -117,18 +117,20 @@
 									 = UINT64( Array(33).join('1'), 2 ).toString(10)
 									 = 4294967295
 			So the maximum substring length n is:
-			36^n = m
-			n = ln(m)/ln(36)
-			n = Math.log( 4294967295 ) / Math.log( 36 ) = 6.189644915687692
-			n = 6
+			36^(n+1) - 1 = 2^(31+1) - 1
+			36^(n+1) = 2^32
+			(n+1)ln(36) = 32ln(2)
+			n = 32ln(2)/ln(36) - 1
+			n = 5.189644915687692
+			n = 5
 		 */
-		var radixUint = radixPowerCache[radix] || new UINT64( Math.pow(radix, 6) )
+		var radixUint = radixPowerCache[radix] || new UINT64( Math.pow(radix, 5) )
 
-		for (var i = 0, len = s.length; i < len; i += 6) {
-			var size = Math.min(6, len - i)
+		for (var i = 0, len = s.length; i < len; i += 5) {
+			var size = Math.min(5, len - i)
 			var value = parseInt( s.slice(i, i + size), radix )
 			this.multiply(
-					size < 6
+					size < 5
 						? new UINT64( Math.pow(radix, size) )
 						: radixUint
 				)
