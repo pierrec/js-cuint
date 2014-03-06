@@ -113,11 +113,9 @@
 			mantissa.
 			Therefore UINT64(<Number>) can only work on 32 bits.
 			The radix maximum value is 36 (as per ECMA specs) (26 letters + 10 digits)
-			maximum input value is m = 32bits as 1
-									 = UINT64( Array(33).join('1'), 2 ).toString(10)
-									 = 4294967295
+			maximum input value is m = 32bits as 1 = 2^32 - 1
 			So the maximum substring length n is:
-			36^(n+1) - 1 = 2^(31+1) - 1
+			36^(n+1) - 1 = 2^32 - 1
 			36^(n+1) = 2^32
 			(n+1)ln(36) = 32ln(2)
 			n = 32ln(2)/ln(36) - 1
@@ -293,11 +291,15 @@
 			if (other._a00 == 0) throw Error('division by zero')
 
 			// other == 1: this
-			if (other._a00 == 1) return this
+			if (other._a00 == 1) {
+				this.remainder = new UINT64(0)
+				return this
+			}
 		}
 
 		// other > this: 0
 		if ( other.gt(this) ) {
+			this.remainder = new UINT64(0)
 			this._a00 = 0
 			this._a16 = 0
 			this._a32 = 0
@@ -306,6 +308,7 @@
 		}
 		// other == this: 1
 		if ( this.eq(other) ) {
+			this.remainder = new UINT64(0)
 			this._a00 = 1
 			this._a16 = 0
 			this._a32 = 0

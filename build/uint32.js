@@ -5,16 +5,7 @@
  */
 ;(function (root) {
 
-	var maxLog = Math.log(2147483647)
-
 	// Local cache for typical radices
-	// Math.log(2147483647) / Math.log(radix)
-	var radixSizeCache = {
-		36: 5
-	,	16: 7
-	,	10: 9
-	,	2: 30
-	}
 	var radixPowerCache = {
 		36: UINT32( Math.pow(36, 5) )
 	,	16: UINT32( Math.pow(16, 7) )
@@ -215,16 +206,21 @@
 		if ( (other._low == 0) && (other._high == 0) ) throw Error('division by zero')
 
 		// other == 1
-		if (other._high == 0 && other._low == 1) return this
+		if (other._high == 0 && other._low == 1) {
+			this.remainder = new UINT32(0)
+			return this
+		}
 
 		// other > this: 0
 		if ( other.gt(this) ) {
+			this.remainder = new UINT32(0)
 			this._low = 0
 			this._high = 0
 			return this
 		}
 		// other == this: 1
 		if ( this.eq(other) ) {
+			this.remainder = new UINT32(0)
 			this._low = 1
 			this._high = 0
 			return this
