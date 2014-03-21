@@ -30,6 +30,8 @@
 		if ( !(this instanceof UINT32) )
 			return new UINT32(l, h)
 
+		this._low = 0
+		this._high = 0
 		this.remainder = null
 		if (typeof h == 'undefined')
 			return fromNumber.call(this, l)
@@ -249,7 +251,7 @@
 			if ( !this.remainder.lt(_other) ) {
 				this.remainder.subtract(_other)
 				// Update the current result
-				if (i > 16) {
+				if (i >= 16) {
 					this._high |= 1 << (i - 16)
 				} else {
 					this._low |= 1 << i
@@ -354,14 +356,14 @@
 	 */
 	UINT32.prototype.shiftRight = UINT32.prototype.shiftr = function (n) {
 		if (n > 16) {
-			this._low = this._high >>> (n - 16)
+			this._low = this._high >> (n - 16)
 			this._high = 0
 		} else if (n == 16) {
 			this._low = this._high
 			this._high = 0
 		} else {
-			this._low = (this._low >>> n) | ( (this._high << (16-n)) & 0xFFFF )
-			this._high = this._high >> n
+			this._low = (this._low >> n) | ( (this._high << (16-n)) & 0xFFFF )
+			this._high >>= n
 		}
 
 		return this
@@ -385,7 +387,7 @@
 			this._high = this._low
 			this._low = 0
 		} else {
-			this._high = (this._high << n) | (this._low >>> (16-n))
+			this._high = (this._high << n) | (this._low >> (16-n))
 			this._low = (this._low << n) & 0xFFFF
 			if (!allowOverflow) {
 				// Overflow only allowed on the high bits...

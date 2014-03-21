@@ -470,26 +470,26 @@
 	UINT64.prototype.shiftRight = UINT64.prototype.shiftr = function (n) {
 		n %= 64
 		if (n >= 48) {
-			this._a00 = this._a48 >>> (n - 48)
+			this._a00 = this._a48 >> (n - 48)
 			this._a16 = 0
 			this._a32 = 0
 			this._a48 = 0
 		} else if (n >= 32) {
 			n -= 32
-			this._a00 = ( (this._a32 >>> n) | (this._a48 << (16-n)) ) & 0xFFFF
+			this._a00 = ( (this._a32 >> n) | (this._a48 << (16-n)) ) & 0xFFFF
 			this._a16 = (this._a48 >> n) & 0xFFFF
 			this._a32 = 0
 			this._a48 = 0
 		} else if (n >= 16) {
 			n -= 16
-			this._a00 = ( (this._a16 >>> n) | (this._a32 << (16-n)) ) & 0xFFFF
-			this._a16 = ( (this._a32 >>> n) | (this._a48 << (16-n)) ) & 0xFFFF
+			this._a00 = ( (this._a16 >> n) | (this._a32 << (16-n)) ) & 0xFFFF
+			this._a16 = ( (this._a32 >> n) | (this._a48 << (16-n)) ) & 0xFFFF
 			this._a32 = (this._a48 >> n) & 0xFFFF
 			this._a48 = 0
 		} else {
-			this._a00 = ( (this._a00 >>> n) | (this._a16 << (16-n)) ) & 0xFFFF
-			this._a16 = ( (this._a16 >>> n) | (this._a32 << (16-n)) ) & 0xFFFF
-			this._a32 = ( (this._a32 >>> n) | (this._a48 << (16-n)) ) & 0xFFFF
+			this._a00 = ( (this._a00 >> n) | (this._a16 << (16-n)) ) & 0xFFFF
+			this._a16 = ( (this._a16 >> n) | (this._a32 << (16-n)) ) & 0xFFFF
+			this._a32 = ( (this._a32 >> n) | (this._a48 << (16-n)) ) & 0xFFFF
 			this._a48 = (this._a48 >> n) & 0xFFFF
 		}
 
@@ -512,20 +512,20 @@
 			this._a00 = 0
 		} else if (n >= 32) {
 			n -= 32
-			this._a48 = (this._a16 << n) | (this._a00 >>> (16-n))
+			this._a48 = (this._a16 << n) | (this._a00 >> (16-n))
 			this._a32 = (this._a00 << n) & 0xFFFF
 			this._a16 = 0
 			this._a00 = 0
 		} else if (n >= 16) {
 			n -= 16
-			this._a48 = (this._a32 << n) | (this._a16 >>> (16-n))
-			this._a32 = ( (this._a16 << n) | (this._a00 >>> (16-n)) ) & 0xFFFF
+			this._a48 = (this._a32 << n) | (this._a16 >> (16-n))
+			this._a32 = ( (this._a16 << n) | (this._a00 >> (16-n)) ) & 0xFFFF
 			this._a16 = (this._a00 << n) & 0xFFFF
 			this._a00 = 0
 		} else {
-			this._a48 = (this._a48 << n) | (this._a32 >>> (16-n))
-			this._a32 = ( (this._a32 << n) | (this._a16 >>> (16-n)) ) & 0xFFFF
-			this._a16 = ( (this._a16 << n) | (this._a00 >>> (16-n)) ) & 0xFFFF
+			this._a48 = (this._a48 << n) | (this._a32 >> (16-n))
+			this._a32 = ( (this._a32 << n) | (this._a16 >> (16-n)) ) & 0xFFFF
+			this._a16 = ( (this._a16 << n) | (this._a00 >> (16-n)) ) & 0xFFFF
 			this._a00 = (this._a00 << n) & 0xFFFF
 		}
 		if (!allowOverflow) {
