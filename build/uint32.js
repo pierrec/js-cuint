@@ -267,7 +267,7 @@
 	 * @method negate
 	 * @return ThisExpression
 	 */
-	UINT32.prototype.negate = UINT32.prototype.not = function () {
+	UINT32.prototype.negate = function () {
 		var v = ( ~this._low & 0xFFFF ) + 1
 		this._low = v & 0xFFFF
 		this._high = (~this._high + (v >>> 16)) & 0xFFFF
@@ -331,6 +331,18 @@
 	UINT32.prototype.and = function (other) {
 		this._low &= other._low
 		this._high &= other._high
+
+		return this
+	}
+
+	/**
+	 * Bitwise NOT
+	 * @method not
+	 * @return ThisExpression
+	 */
+	UINT32.prototype.not = function() {
+		this._low = ~this._low & 0xFFFF
+		this._high = ~this._high & 0xFFFF
 
 		return this
 	}
