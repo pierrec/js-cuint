@@ -1,3 +1,9 @@
+0.2.0 / 2015-01-05
+==================
+
+* merged pull request c6d1c41 from tec27
+* updated package.json file
+
 0.1.5 / 2014-03-21
 ==================
 
