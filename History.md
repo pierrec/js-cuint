@@ -1,3 +1,8 @@
+0.2.1 / 2015-12-18
+==================
+
+* fixed issue #3: invalid remainder in x.div(y) where y > x -- thanks @bltpanda
+
 0.2.0 / 2015-01-05
 ==================
 
