@@ -94,7 +94,7 @@
 	 * @return {Number} the converted UINT32
 	 */
 	UINT32.prototype.toNumber = function () {
-		return (this._high << 16) | this._low
+		return (this._high * 65536) + this._low
 	}
 
 	/**
@@ -104,21 +104,7 @@
 	 * @return {String} the converted UINT32
 	 */
 	UINT32.prototype.toString = function (radix) {
-		radix = radix || 10
-		var radixUint = radixCache[radix] || new UINT32(radix)
-
-		if ( !this.gt(radixUint) ) return this.toNumber().toString(radix)
-
-		var self = this.clone()
-		var res = new Array(32)
-		for (var i = 31; i >= 0; i--) {
-			self.div(radixUint)
-			res[i] = self.remainder.toNumber().toString(radix)
-			if ( !self.gt(radixUint) ) break
-		}
-		res[i-1] = self.toNumber().toString(radix)
-
-		return res.join('')
+		return this.toNumber().toString(radix || 10)
 	}
 
 	/**
